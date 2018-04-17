@@ -178,7 +178,7 @@ static void send_message()
 
 
 
-    retcode = lorawan.send(MBED_CONF_LORA_APP_PORT, tx_buffer, packet_len,
+    retcode = lorawan.send(1, tx_buffer, packet_len,
                            MSG_CONFIRMED_FLAG);
 
     if (retcode < 0) {
