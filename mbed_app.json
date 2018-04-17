@@ -6,26 +6,27 @@
         },
         "main_stack_size":     { "value": 4096 },
 
-        "lorawan-enabled":     { "value": false},
+            "lorawan-enabled":      true,
 
-        "lora-spi-mosi":       { "value": "NC" },
-        "lora-spi-miso":       { "value": "NC" },
-        "lora-spi-sclk":       { "value": "NC" },
-        "lora-cs":             { "value": "NC" },
-        "lora-reset":          { "value": "NC" },
-        "lora-dio0":           { "value": "NC" },
-        "lora-dio1":           { "value": "NC" },
-        "lora-dio2":           { "value": "NC" },
-        "lora-dio3":           { "value": "NC" },
-        "lora-dio4":           { "value": "NC" },
-        "lora-dio5":           { "value": "NC" },
-        "lora-rf-switch-ctl1": { "value": "NC" },
-        "lora-rf-switch-ctl2": { "value": "NC" },
-        "lora-txctl":          { "value": "NC" },
-        "lora-rxctl":          { "value": "NC" },
-        "lora-ant-switch":     { "value": "NC" },
-        "lora-pwr-amp-ctl":    { "value": "NC" },
-        "lora-tcxo":           { "value": "NC" }
+            "lora-radio":          "SX1276",
+            "lora-spi-mosi":       "PA_7",
+            "lora-spi-miso":       "PA_6",
+            "lora-spi-sclk":       "PB_3",
+            "lora-cs":             "PA_15",
+            "lora-reset":          "PC_0",
+            "lora-dio0":           "PB_4",
+            "lora-dio1":           "PB_1",
+            "lora-dio2":           "PB_0",
+            "lora-dio3":           "PC_13",
+            "lora-dio4":           "NC",
+            "lora-dio5":           "NC",
+            "lora-rf-switch-ctl1": "NC",
+            "lora-rf-switch-ctl2": "NC",
+            "lora-txctl":          "PC_2",
+            "lora-rxctl":          "PA_1",
+            "lora-ant-switch":     "NC",
+            "lora-pwr-amp-ctl":    "PC_1",
+            "lora-tcxo":           "PA_12"
     },
     "target_overrides": {
         "*": {
@@ -35,9 +36,9 @@
             "lora.over-the-air-activation": true,
             "lora.duty-cycle-on": true,
             "lora.phy": 0,
-            "lora.device-eui": "{ 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 }",
-            "lora.application-eui": "{ 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 }",
-            "lora.application-key": "{ 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 }"
+            "lora.device-eui": "{ 0x00, 0x1E, 0x8A, 0xFA, 0x53, 0x96, 0x47, 0xA1 }",
+            "lora.application-eui": "{ 0x70, 0xB3, 0xD5, 0x7E, 0xD0, 0x00, 0xBB, 0x55 }",
+            "lora.application-key": "{ 0x59, 0xC4, 0x09, 0xD9, 0x3A, 0x58, 0x48, 0xDF, 0xAE, 0xDE, 0xB8, 0x56, 0x68, 0x79, 0x8D, 0xA6 }"
         },
 
         "K64F": {

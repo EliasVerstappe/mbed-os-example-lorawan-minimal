@@ -6,6 +6,8 @@ To build you need to pass in a custom profile via:
 
 ```
 $ mbed compile --profile=./profiles/develop.json -m YOUR_BOARD_NAME -t YOUR_TOOLCHAIN
+
+mbed compile --profile=./profiles/develop.json -m -t
 ```
 
 ## Getting started
