@@ -29,6 +29,11 @@
 #include "trace_helper.h"
 #include "lora_radio_helper.h"
 
+
+#include "passanten_sensor.h"
+
+
+
 using namespace events;
 
 uint8_t tx_buffer[LORAMAC_PHY_MAXPAYLOAD];
@@ -154,20 +159,24 @@ static void send_message()
 {
     uint16_t packet_len;
     int16_t retcode;
-    float sensor_value;
 
-    if (ds1820.begin()) {
-        ds1820.startConversion();
-        sensor_value = ds1820.read();
-        printf("\r\n Dummy Sensor Value = %3.1f \r\n", sensor_value);
-        ds1820.startConversion();
-    } else {
-        printf("\r\n No sensor found \r\n");
-        return;
-    }
+    PassantenTeller testTeller;
 
-    packet_len = sprintf((char*) tx_buffer, "Dummy Sensor Value is %3.1f",
-                    sensor_value);
+    
+    packet_len = 3;
+    /*
+    tx_buffer[0] = 0x00;
+    tx_buffer[1] = 0x01;
+    tx_buffer[2] = 0x30;
+    */
+
+    tx_buffer[0] = testTeller.getDirection();
+    tx_buffer[1] = testTeller.getAmountOfVehicules() / 256;
+    tx_buffer[2] = testTeller.getAmountOfVehicules() % 256;
+
+
+
+
 
     retcode = lorawan.send(MBED_CONF_LORA_APP_PORT, tx_buffer, packet_len,
                            MSG_CONFIRMED_FLAG);
