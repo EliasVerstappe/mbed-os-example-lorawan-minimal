@@ -30,8 +30,8 @@
 #include "lora_radio_helper.h"
 
 
-#include "passanten_sensor.h"
-
+//#include "passanten_sensor.h"
+#include "counter.h"
 
 
 using namespace events;
@@ -145,6 +145,12 @@ int main (void)
 
     printf("\r\n Connection - In Progress ...\r\n");
 
+    // interrupt handler ticker, zoek op mbed handbook
+    Ticker sendTicker;
+
+    sendTicker.attach(&send_message, 30.0);
+
+
     // make your event queue dispatching events forever
     ev_queue.dispatch_forever();
 
@@ -160,20 +166,20 @@ static void send_message()
     uint16_t packet_len;
     int16_t retcode;
 
-    PassantenTeller testTeller;
+    Counter counter(A0, A1);
 
     
     packet_len = 3;
-    /*
-    tx_buffer[0] = 0x00;
-    tx_buffer[1] = 0x01;
-    tx_buffer[2] = 0x30;
-    */
-
+    
+    tx_buffer[0] = counter.readLeft();
+    tx_buffer[1] = counter.readRight();
+    tx_buffer[2] = 0x00;
+    
+/*
     tx_buffer[0] = testTeller.getDirection();
     tx_buffer[1] = testTeller.getAmountOfVehicules() / 256;
     tx_buffer[2] = testTeller.getAmountOfVehicules() % 256;
-
+*/
 
 
 
@@ -237,10 +243,14 @@ static void lora_event_handler(lorawan_event_t event)
             printf("\r\n Disconnected Successfully \r\n");
             break;
         case TX_DONE:
+            
             printf("\r\n Message Sent to Network Server \r\n");
+            /*
             if (MBED_CONF_LORA_DUTY_CYCLE_ON) {
                 send_message();
+                
             }
+            */
             break;
         case TX_TIMEOUT:
         case TX_ERROR:
