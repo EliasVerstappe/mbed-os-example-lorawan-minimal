@@ -12,6 +12,8 @@ class Counter {
         int readLeft();
         int readRight();
 
+        void updateLeds();
+
 
     private:
 
@@ -20,5 +22,9 @@ class Counter {
 
         DigitalIn _digitalInRight;
         volatile int _countRight;
+
+        
+        DigitalOut led1;
+        DigitalOut led2;
         
 };

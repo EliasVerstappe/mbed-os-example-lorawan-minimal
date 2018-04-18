@@ -44,6 +44,7 @@ int PassantenTeller::getAmountOfVehicules(){
     uint8_t PassantenTeller::getRightTraffic(){
         return trafficRight;
     }
+    
 */
 
 

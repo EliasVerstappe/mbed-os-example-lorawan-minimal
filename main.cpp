@@ -34,6 +34,8 @@
 #include "counter.h"
 
 
+
+
 using namespace events;
 
 uint8_t tx_buffer[LORAMAC_PHY_MAXPAYLOAD];
@@ -93,6 +95,10 @@ static LoRaWANInterface lorawan(radio);
  */
 static lorawan_app_callbacks_t callbacks;
 
+static void send_message();
+
+Counter counter(D6, D7);
+
 /**
  * Entry point for application
  */
@@ -148,11 +154,16 @@ int main (void)
     // interrupt handler ticker, zoek op mbed handbook
     Ticker sendTicker;
 
-    sendTicker.attach(&send_message, 30.0);
+    sendTicker.attach(&send_message, 10.0);
 
 
     // make your event queue dispatching events forever
-    ev_queue.dispatch_forever();
+    //ev_queue.dispatch_forever();
+    while(1){
+        //wait_ms(100);
+        counter.updateLeds();
+        ev_queue.dispatch(1);
+    }
 
     return 0;
 }
@@ -166,20 +177,30 @@ static void send_message()
     uint16_t packet_len;
     int16_t retcode;
 
-    Counter counter(A0, A1);
+    
 
     
-    packet_len = 3;
-    
-    tx_buffer[0] = counter.readLeft();
-    tx_buffer[1] = counter.readRight();
-    tx_buffer[2] = 0x00;
+    packet_len = 2;
+
+
+    // int leftValue = counter.readLeft();
+    // int rightValue = counter.readRight();
+
+    // tx_buffer[0] = leftValue;
+    // printf("%d\r\n", leftValue);
+
+
+    // tx_buffer[1] = rightValue;
+    // printf("%d\r\n", rightValue);
     
 /*
     tx_buffer[0] = testTeller.getDirection();
     tx_buffer[1] = testTeller.getAmountOfVehicules() / 256;
     tx_buffer[2] = testTeller.getAmountOfVehicules() % 256;
 */
+
+    tx_buffer[0] = rand() % 4;
+    tx_buffer[1] = rand() % 3;
 
 
 
